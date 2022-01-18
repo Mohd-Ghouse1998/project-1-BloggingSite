@@ -96,7 +96,7 @@ const updateBlog = async function (req, res) {
     const authid = check.authorId
    
     if (req.user.userId == authid) {
-      const updatedBlog = await blogModel.findOneAndUpdate({ _id: blogId }, { title: title, body: body, $push: { tags: tags, subcategory: subcategory }, isPublished: isPublished }, { new: true })
+      const updatedBlog = await blogModel.findOneAndUpdate({ _id: blogId }, { title: title, body: body, $addToSet: { tags: tags, subcategory: subcategory }, isPublished: isPublished }, { new: true })
 
       if (updatedBlog.isPublished == true) {
         updatedBlog.publishedAt = new Date()
